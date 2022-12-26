@@ -37,6 +37,7 @@ class MyHelpCommand(commands.MinimalHelpCommand):
     def get_command_signature(self, command: commands.Command):
         return f"{command.qualified_name} {command.signature}"
 
+    # Hide the help command from the help command
     #def __init__(self):
         #attrs = {
         #    "hidden": True,

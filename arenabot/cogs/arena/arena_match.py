@@ -27,6 +27,7 @@ class ArenaMatch:
         Makes a move
         Returns Bool whether the action was successful, and a message
         """
+        move = move.casefold()
         match move: # Move aliases
             case 'attck' | 'a':
                 move = 'attack'
@@ -38,6 +39,12 @@ class ArenaMatch:
         if move not in move_functions:
             self.last_move = "That is not a valid move"
             return False
+
+        if move not in self.current_player.abilities:
+            if move != 'attack' and move != 'wait':
+                self.last_move = "That is not one of your moves"
+                return False
+
 
         # Do the move
         my_function = getattr(self.current_player, move, lambda: None)

@@ -1,8 +1,7 @@
-
-#
-from typing import Type
 import validators
 import random
+
+from constants import DEFAULT_PROFILE_PICTURE
 
 class Player:
     def __init__(self, stats):
@@ -24,11 +23,11 @@ class Player:
 
         try:
             if not validators.url(stats[14]):
-                self.image = "https://cdn.discordapp.com/attachments/1001705046213398530/1036511658773839902/unknown.png"
+                self.image = DEFAULT_PROFILE_PICTURE
             else:
                 self.image = stats[14]
         except:
-            self.image = "https://cdn.discordapp.com/attachments/1001705046213398530/1036511658773839902/unknown.png"
+            self.image = DEFAULT_PROFILE_PICTURE
 
         self.effects = []
 
@@ -421,20 +420,20 @@ class Player:
         if fail_message:
             return False, fail_message
 
-        if "stripped" in defender.effects:
-            return False, f"{defender.combatant} was already stripped and misses a turn"
-        else:
-            self.effects.append("stripped")
+        if "stripped" in self.effects:
+            return False, f"{self.combatant} was already stripped"
 
-            amount = self.IN
+        self.effects.append("stripped")
 
-            defender.AR = defender.AR - amount
-            if defender.AR <= 0:
-                defender.AR = 0
+        amount = self.IN
 
-            self.IN = self.IN - amount
-            if self.IN <= 0:
-                self.IN = 0
+        defender.AR = defender.AR - amount
+        if defender.AR <= 0:
+            defender.AR = 0
+
+        self.IN = self.IN - amount
+        if self.IN <= 0:
+            self.IN = 0
 
         self.set_damage_to_en()
         return True, f"{self.combatant} lost {amount} IN, {defender.combatant} lost {amount} AR"

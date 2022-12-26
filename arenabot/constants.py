@@ -14,6 +14,8 @@ GSHEETS_KEY = {
 }
 WORKBOOK_KEY = "1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs"
 
+DEFAULT_PROFILE_PICTURE = "https://cdn.discordapp.com/attachments/1001705046213398530/1036511658773839902/unknown.png"
+
 # Emojis
 CHECK = '✅'
 ERR = '❌'

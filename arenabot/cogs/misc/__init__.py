@@ -1,6 +1,3 @@
-import platform # Version
-import pytz
-from datetime import datetime
 from typing import Optional, List
 
 import discord
@@ -8,7 +5,6 @@ from discord.ext import commands
 from discord import app_commands
 
 from constants import CHECK, ERR, WARN, INFO
-
 from cogs.misc.help import MyHelpCommand
 
 class Misc(commands.Cog, name="Misc"):
@@ -43,14 +39,7 @@ class Misc(commands.Cog, name="Misc"):
         ctx = await self.bot.get_context(interaction, cls=commands.Context)
         help_command = self.bot.help_command.copy()
         help_command.context = ctx
-        """
-        if not needle:
-            return [
-                app_commands.Choice(name=f"{getattr(cog, 'COG_EMOJI', None)} {cog_name}", value=cog_name)
-                for cog_name, cog in self.bot.cogs.items()
-                if await help_command.filter_commands(cog.get_commands())
-            ][:25]
-        """
+
         if needle:
             needle = needle.lower()
 

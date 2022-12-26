@@ -6,7 +6,7 @@ import discord
 from discord import Embed
 import gspread
 
-from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO, WORKBOOK_KEY
+from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO
 
 from cogs.arena.gsheet_client import Arena_Schema
 
@@ -14,7 +14,10 @@ Arena_schema = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Aren
 
 ABILITIES =['buff', 'heal', 'poison', 'strip', 'summon', 'mount', 'stun', 'explosion', 'focus', 'steal', 'jog', 'dodge', 'warp', 'resist', 'guard']
 
-Arena_Schema  = Arena_Schema("WORKBOOK_KEY","Arena")
+WORKBOOK_KEY = "1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs"
+WORKSHEET = "Arena"
+
+Arena_Schema  = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Arena")
 
 # Define a View that gives us a button
 class OpenModal(discord.ui.View):
