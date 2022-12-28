@@ -99,6 +99,7 @@ class Arena_Schema(gspread_asyncio.AsyncioGspreadClientManager):
         # Format output as dict
         output = {
             'title': f'Username `{user.name}`, in sheet:`{sheet.title}`',
+            'url': f'{sheet.url}',
             'fields': {
                 f'Combatant: {cell_values[1]}': finalised_fields
             },
@@ -149,6 +150,7 @@ class Arena_Schema(gspread_asyncio.AsyncioGspreadClientManager):
         # Format output as dict
         output = {
             'title': f'Username `{user.name}`, in sheet:`{sheet.title}`',
+            'url': f'{sheet.url}',
             'fields': {
                 f'Combatant: {combatant[1]}': finalised_fields
             },

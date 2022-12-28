@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from constants import ERR, CHECK, WARN, INFO
+from constants import ERR, CHECK, WARN, INFO, DEFAULT_PROFILE_PICTURE, WORKBOOK_KEY
 
 from cogs.arena.arena import (
     OpenModal,
@@ -101,7 +101,7 @@ class Arena(commands.Cog, name="arena"):
                             player2_stats = combatants[1]
 
                             if challengee.id == ctx.message.author.id:
-                                player2_stats = [ctx.message.author.id, ctx.message.author.display_name, 'Gitanas Nausėda', '3', '5', '2', '2', '3', '4', '2', '0', 'poison', 'guard', 'knife', 'https://cdn.discordapp.com/attachments/959751548232138792/1043261840903389275/unknown.png']
+                                player2_stats = [ctx.message.author.id, ctx.message.author.display_name, 'Test Opponent', '3', '5', '2', '2', '3', '4', '2', '0', 'poison', 'dodge', 'knife', DEFAULT_PROFILE_PICTURE]
 
                             # Create the match
                             # MAGIC STARTS HERE
@@ -165,7 +165,6 @@ class Arena(commands.Cog, name="arena"):
             if not data:
                 await ctx.send(f"{ERR} {message}")
             else:
-                data.update({"url":'https://docs.google.com/spreadsheets/d/1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs/#gid=2024359291'})
                 embed = format_player_info_embed(data)
                 await ctx.send(message, embed=embed)
 

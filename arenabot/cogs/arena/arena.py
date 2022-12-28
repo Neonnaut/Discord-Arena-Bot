@@ -6,7 +6,7 @@ import discord
 from discord import Embed
 import gspread
 
-from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO
+from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO, WORKBOOK_KEY
 
 from cogs.arena.gsheet_client import Arena_Schema
 
@@ -14,10 +14,9 @@ Arena_schema = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Aren
 
 ABILITIES =['buff', 'heal', 'poison', 'strip', 'summon', 'mount', 'stun', 'explosion', 'focus', 'steal', 'jog', 'dodge', 'warp', 'resist', 'guard']
 
-WORKBOOK_KEY = "1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs"
 WORKSHEET = "Arena"
 
-Arena_Schema  = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Arena")
+Arena_Schema  = Arena_Schema(WORKBOOK_KEY,"Arena")
 
 # Define a View that gives us a button
 class OpenModal(discord.ui.View):
@@ -146,7 +145,6 @@ class Combatant(discord.ui.Modal, title='Combatant'):
                 output
             )
             if myData:
-                myData.update({"url":'https://docs.google.com/spreadsheets/d/1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs/#gid=2024359291'})
                 embed = format_player_info_embed(myData)
                 ping = time.time() - ping
                 embed.set_footer(text=f"Message Latency: {round(ping,1)}s")
