@@ -1,7 +1,6 @@
-import random
 from discord import Embed
 
-from cogs.arena.arena_player import Player
+from ..arena.arena_player import Player
 
 from constants import INFO, CHECK
 
@@ -22,7 +21,7 @@ class ArenaMatch:
         self.end_result = ""
         self.winner = None
 
-    def make_move(self, move):
+    async def make_move(self, move):
         """
         Makes a move
         Returns Bool whether the action was successful, and a message

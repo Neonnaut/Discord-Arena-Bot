@@ -1,22 +1,20 @@
-import asyncio
-import re
 import time
 from typing import Optional
 import discord
 from discord import Embed
-import gspread
 
-from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO, WORKBOOK_KEY
+from constants import GSHEETS_KEY, ERR, WARN, CHECK, INFO, DIAMOND
 
-from cogs.arena.gsheet_client import Arena_Schema
+from ..arena.gsheet_client import Arena_Schema
 
 Arena_schema = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Arena")
 
 ABILITIES =['buff', 'heal', 'poison', 'strip', 'summon', 'mount', 'stun', 'explosion', 'focus', 'steal', 'jog', 'dodge', 'warp', 'resist', 'guard']
 
+WORKBOOK_KEY = "1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs"
 WORKSHEET = "Arena"
 
-Arena_Schema  = Arena_Schema(WORKBOOK_KEY,"Arena")
+Arena_Schema  = Arena_Schema("1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs","Arena")
 
 # Define a View that gives us a button
 class OpenModal(discord.ui.View):
@@ -113,24 +111,24 @@ class Combatant(discord.ui.Modal, title='Combatant'):
                                         denied = False
                                     else:
                                         denied = True
-                                        message = f'{ERR} Your stats were not digits.'
+                                        message = f'Your stats were not digits.'
                                 if stat_total > 21 + int(wins):
                                     denied = True
-                                    message = f'{ERR} Your total stats must be a maximum of 21 + your number of wins (artefacts).\n'\
+                                    message = f'Your total stats must be a maximum of 21 + your number of wins (artefacts).\n'\
                                         + f'In your case, a maximum total of `{21 + int(wins)}`, but you entered `{stat_total}`.'
 
                             else:
-                                message = f'{ERR} Your HP was at 0.'
+                                message = f'Your HP was at 0.'
                         else:
-                            message = f'{ERR} The number of stats was not eight.'
+                            message = f'The number of stats was not eight.'
                     else:
-                        message = f'{ERR} That ability does not exist.'
+                        message = f'That ability does not exist.'
                 else:
-                    message = f'{ERR} That ability does not exist.'
+                    message = f'That ability does not exist.'
             else:
-                message = f'{ERR} The number of wins was in the negatives.'
+                message = f'The number of wins was in the negatives.'
         else:
-            message = f'{ERR} The number of wins was not a number.'
+            message = f'The number of wins was not a number.'
 
 
         if not denied and not message:
@@ -145,15 +143,16 @@ class Combatant(discord.ui.Modal, title='Combatant'):
                 output
             )
             if myData:
+                myData.update({"url":'https://docs.google.com/spreadsheets/d/1JEwnfr0EWAltG9QdXzfox5ujuaaFhbtPWLUFH4kovhs/#gid=2024359291'})
                 embed = format_player_info_embed(myData)
                 ping = time.time() - ping
                 embed.set_footer(text=f"Message Latency: {round(ping,1)}s")
                 await interaction.followup.send(f"{CHECK} {message}", embed=embed, ephemeral=False)
             else:
-                await interaction.followup.send(message, ephemeral=False)
+                await interaction.followup.send(f"{ERR} {message}", ephemeral=False)
         else:
             ping = time.time() - ping
-            await interaction.followup.send(message, ephemeral=False)
+            await interaction.followup.send(f"{ERR} {message}", ephemeral=False)
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         await interaction.response.send_message('Oops! Something went wrong.', ephemeral=True)
@@ -197,9 +196,9 @@ def format_player_info_embed(data: dict):
             for item in value:
 
                 if len(set_field_1) < 7:
-                    set_field_1.append(f"▫️{item}")
+                    set_field_1.append(f"{DIAMOND}{item}")
                 else:
-                    set_field_2.append(f"▫️{item}")
+                    set_field_2.append(f"{DIAMOND}{item}")
 
         if len(set_field_1) != 0:
             embed.add_field(
@@ -242,7 +241,7 @@ def generate_arena_info_embed(prefix):
         name=f"**Creating and viewing combatants**",
         value=
             f"`{prefix}arena set` - Creates a button for anyone to create or update their combatant."
-            f"\n`{prefix}show_arena_combatant <username>` - Displays a user's combatant."
+            f"\n`{prefix}arena show <username>` - Displays a user's combatant."
     )
 
     embed.add_field(
